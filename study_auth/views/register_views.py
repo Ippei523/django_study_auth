@@ -9,14 +9,13 @@ class RegisterView(APIView):
     permission_classes = (AllowAny,)
 
     def post(self, request, *args, **kwargs):
-        if User.objects.filter(email=request.data['email']).exists():
-            return Response({'message': 'メールアドレスはすでに存在しています'}, status=400)
+        if User.objects.filter(email=request.data["email"]).exists():
+            return Response(
+                {"message": "メールアドレスはすでに存在しています"}, status=400
+            )
 
-        email = request.data['email']
-        password = request.data['password']
-        User.objects.create(
-            email=email,
-            password=make_password(password)
-        )
+        email = request.data["email"]
+        password = request.data["password"]
+        User.objects.create(email=email, password=make_password(password))
 
-        return Response({'message': 'Successfull registration'})
+        return Response({"message": "Successfull registration"})
